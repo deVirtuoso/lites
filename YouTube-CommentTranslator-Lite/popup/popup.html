@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YT Translator Lite</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <h1>YT Translator Lite</h1>
+      <label class="row">
+        <input type="checkbox" id="enabled" />
+        <span>Auto-translate comments &amp; live chat</span>
+      </label>
+      <label class="row">
+        <input type="checkbox" id="bilingualDisplay" />
+        <span>Show original + translation</span>
+      </label>
+      <label>
+        <span>Your language</span>
+        <select id="yourLanguage"></select>
+      </label>
+      <label>
+        <span>Translation engine</span>
+        <select id="engine">
+          <option value="microsoft">Microsoft (recommended)</option>
+          <option value="yandex">Yandex</option>
+          <option value="google2">Google</option>
+          <option value="google">Google (legacy)</option>
+        </select>
+      </label>
+      <label>
+        <span>Translation color</span>
+        <input type="color" id="color" />
+      </label>
+      <p class="hint">Use the on-page button or checkbox above to toggle both languages. Reload YouTube after other changes.</p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

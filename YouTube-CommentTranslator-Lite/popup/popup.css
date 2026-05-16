@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font: 13px/1.4 system-ui, -apple-system, Segoe UI, sans-serif;
+  color: #202124;
+  min-width: 280px;
+}
+
+main {
+  padding: 14px 16px 16px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+label.row {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+select,
+input[type="color"] {
+  width: 100%;
+}
+
+.hint {
+  margin: 4px 0 0;
+  color: #5f6368;
+  font-size: 12px;
+}
