@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>Discord Translator Lite</title>
+  </head>
+  <body>
+    <main>
+      <h1>Discord Translator Lite</h1>
+
+      <label class="row switch-row">
+        <span>Translation</span>
+        <input id="enabled" type="checkbox" />
+      </label>
+
+      <label class="row switch-row">
+        <span>Both languages</span>
+        <input id="bilingualDisplay" type="checkbox" />
+      </label>
+
+      <label class="field">
+        <span>Your language</span>
+        <select id="yourLanguage"></select>
+      </label>
+
+      <label class="field">
+        <span>Translation engine</span>
+        <select id="engine">
+          <option value="microsoft">Microsoft</option>
+          <option value="yandex">Yandex</option>
+          <option value="google">Google</option>
+          <option value="google2">Google API</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Translation color</span>
+        <input id="color" type="color" />
+      </label>
+
+      <label class="row switch-row">
+        <span>Outgoing button</span>
+        <input id="outgoingEnabled" type="checkbox" />
+      </label>
+
+      <label class="field">
+        <span>Contact language</span>
+        <select id="contactLanguage"></select>
+      </label>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>

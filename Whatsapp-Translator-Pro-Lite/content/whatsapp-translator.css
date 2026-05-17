@@ -1,0 +1,35 @@
+[data-watl-hidden-origin="true"] { display: none !important; }
+.watl-translation {
+  display: block;
+  margin-top: 4px;
+  color: var(--watl-color, #00a884);
+  font-size: 0.95em;
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+.watl-divider {
+  border: 0;
+  height: 1px;
+  margin: 6px 0 4px;
+  background: linear-gradient(90deg, transparent, rgba(134, 150, 160, 0.35), transparent);
+}
+.watl-floating-toggle,
+.watl-compose-button {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  background: #00a884;
+  color: #fff;
+  cursor: pointer;
+  font: 600 12px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.watl-floating-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 82px;
+  z-index: 2147483646;
+  padding: 8px 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+.watl-floating-toggle[aria-pressed="true"] { background: #25d366; color: #111b21; }
+.watl-compose-button { margin: 4px 8px; padding: 7px 9px; align-self: center; }
+.watl-compose-button:disabled { cursor: wait; opacity: 0.65; }

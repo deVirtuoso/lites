@@ -1,0 +1,53 @@
+[data-discord-translator-hidden-origin="true"] {
+  display: none !important;
+}
+
+.dtl-translation {
+  display: block;
+  margin-top: 4px;
+  color: var(--dtl-color, #00a8fc);
+  font-size: 0.95em;
+  line-height: 1.35;
+  white-space: pre-wrap;
+}
+
+.dtl-divider {
+  border: 0;
+  height: 1px;
+  margin: 6px 0 4px;
+  background: linear-gradient(90deg, transparent, rgba(148, 155, 164, 0.45), transparent);
+}
+
+.dtl-floating-toggle,
+.dtl-compose-button {
+  border: 1px solid rgba(148, 155, 164, 0.35);
+  border-radius: 6px;
+  background: #5865f2;
+  color: #fff;
+  cursor: pointer;
+  font: 600 12px/1 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.dtl-floating-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 82px;
+  z-index: 2147483646;
+  padding: 8px 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+.dtl-floating-toggle[aria-pressed="true"] {
+  background: #3ba55d;
+}
+
+.dtl-compose-button {
+  margin-left: 8px;
+  padding: 7px 9px;
+  align-self: center;
+}
+
+.dtl-compose-button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
