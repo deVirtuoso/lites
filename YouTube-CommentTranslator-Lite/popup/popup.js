@@ -84,3 +84,129 @@ engineEl.addEventListener("change", () => save({ engine: engineEl.value }))
 colorEl.addEventListener("change", () => save({ color: colorEl.value }))
 
 load()
+
+// --- UI Interaction Logic ---
+
+const mainView = document.getElementById("mainView")
+const authView = document.getElementById("authView")
+const btnShowAuth = document.getElementById("btnShowAuth")
+const btnBackToMain = document.getElementById("btnBackToMain")
+
+// Auth forms and links
+const loginForm = document.getElementById("loginForm")
+const signupForm = document.getElementById("signupForm")
+const forgotForm = document.getElementById("forgotForm")
+const authTitle = document.getElementById("authTitle")
+const linkToggleAuth = document.getElementById("linkToggleAuth")
+const authSwitchText = document.getElementById("authSwitchText")
+const linkToForgot = document.getElementById("linkToForgot")
+
+let currentAuthState = "login" // 'login', 'signup', 'forgot'
+
+function showView(viewId) {
+  mainView.classList.remove("active")
+  authView.classList.remove("active")
+  document.getElementById(viewId).classList.add("active")
+}
+
+btnShowAuth.addEventListener("click", () => showView("authView"))
+btnBackToMain.addEventListener("click", () => showView("mainView"))
+
+function switchAuthState(state) {
+  currentAuthState = state
+  
+  // Hide all forms
+  loginForm.classList.remove("active")
+  signupForm.classList.remove("active")
+  forgotForm.classList.remove("active")
+  
+  const switchContainer = document.querySelector(".auth-switch")
+  const divider = document.querySelector(".auth-divider")
+  const btnGoogle = document.querySelector(".btn-google")
+
+  if (state === "login") {
+    authTitle.textContent = "Sign In"
+    loginForm.classList.add("active")
+    authSwitchText.textContent = "Don't have an account?"
+    linkToggleAuth.textContent = "Sign up"
+    switchContainer.style.display = "block"
+    divider.style.display = "flex"
+    btnGoogle.style.display = "flex"
+  } else if (state === "signup") {
+    authTitle.textContent = "Create Account"
+    signupForm.classList.add("active")
+    authSwitchText.textContent = "Already have an account?"
+    linkToggleAuth.textContent = "Login"
+    switchContainer.style.display = "block"
+    divider.style.display = "flex"
+    btnGoogle.style.display = "flex"
+  } else if (state === "forgot") {
+    authTitle.textContent = "Reset Password"
+    forgotForm.classList.add("active")
+    switchContainer.style.display = "none"
+    divider.style.display = "none"
+    btnGoogle.style.display = "none"
+  }
+}
+
+linkToggleAuth.addEventListener("click", (e) => {
+  e.preventDefault()
+  if (currentAuthState === "login") {
+    switchAuthState("signup")
+  } else {
+    switchAuthState("login")
+  }
+})
+
+linkToForgot.addEventListener("click", (e) => {
+  e.preventDefault()
+  switchAuthState("forgot")
+})
+
+// Auth form submissions
+document.getElementById("signupForm").addEventListener("submit", (e) => {
+  e.preventDefault()
+  alert("This functionality will be connected later.")
+})
+
+document.getElementById("forgotForm").addEventListener("submit", (e) => {
+  e.preventDefault()
+  alert("Reset link sent (placeholder).")
+})
+
+document.getElementById("loginForm").addEventListener("submit", (e) => {
+  e.preventDefault()
+  const email = document.getElementById("loginEmail").value
+  const password = document.getElementById("loginPassword").value
+  
+  if (email === "test@test.com" && password === "password") {
+    // Fake successful login
+    document.getElementById("btnShowAuth").style.display = "none"
+    document.getElementById("btnSignOut").style.display = "flex"
+    document.getElementById("trialBanner").style.display = "block"
+    showView("mainView")
+  } else {
+    alert("Invalid credentials. Try test@test.com / password for the trial demo.")
+  }
+})
+
+document.getElementById("btnSignOut").addEventListener("click", () => {
+  document.getElementById("btnShowAuth").style.display = "block"
+  document.getElementById("btnSignOut").style.display = "none"
+  document.getElementById("trialBanner").style.display = "none"
+  
+  // Reset form
+  document.getElementById("loginEmail").value = ""
+  document.getElementById("loginPassword").value = ""
+})
+
+// Placeholder links
+document.getElementById("linkRating").addEventListener("click", (e) => {
+  e.preventDefault()
+  alert("Redirecting to Chrome Web Store...")
+})
+
+document.getElementById("linkUpgrade").addEventListener("click", (e) => {
+  e.preventDefault()
+  alert("Redirecting to Stripe...")
+})
