@@ -1,0 +1,80 @@
+{
+  "manifest_version": 3,
+  "name": "TranslateTube Voice Translation Lite",
+  "description": "Stripped-down YouTube voice translation runtime.",
+  "version": "26.05.06-lite",
+  "author": "Vlamirand",
+  "icons": {
+    "16": "icon16.plasmo.6c567d50.png",
+    "32": "icon32.plasmo.76b92899.png",
+    "48": "icon48.plasmo.aced7582.png",
+    "64": "icon64.plasmo.8bb5e6e0.png",
+    "128": "icon128.plasmo.3c1ed2d2.png"
+  },
+  "action": {
+    "default_title": "TranslateTube Voice Translation Lite",
+    "default_icon": {
+      "16": "icon16.plasmo.6c567d50.png",
+      "32": "icon32.plasmo.76b92899.png",
+      "48": "icon48.plasmo.aced7582.png",
+      "64": "icon64.plasmo.8bb5e6e0.png",
+      "128": "icon128.plasmo.3c1ed2d2.png"
+    }
+  },
+  "background": {
+    "service_worker": "static/background/index.js"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.translatetube.io/*",
+    "https://auth.translatetube.io/*"
+  ],
+  "externally_connectable": {
+    "matches": [
+      "https://*.translatetube.io/*",
+      "https://auth.translatetube.io/*"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "content.883ade9e.js"
+      ],
+      "css": [
+        "font.ebca8b3e.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "resources": [
+        "asr-bridge.26c9bf2f.js",
+        "broadcast-bridge.2f77e59f.js",
+        "timedtext-bridge.e148acb2.js",
+        "caption-kick-bridge.01dedfad.js",
+        "illustration.c77d4f9d.svg",
+        "logo128.f7052d60.png",
+        "open-sans-cyrillic-ext-wght-normal.c0dfdb51.woff2",
+        "open-sans-cyrillic-wght-normal.bd1b05e5.woff2",
+        "open-sans-greek-ext-wght-normal.190ca07b.woff2",
+        "open-sans-greek-wght-normal.bf3b87db.woff2",
+        "open-sans-hebrew-wght-normal.d47126c5.woff2",
+        "open-sans-latin-ext-wght-normal.126ed60c.woff2",
+        "open-sans-latin-wght-normal.6550dbfb.woff2",
+        "open-sans-math-wght-normal.dbf313bb.woff2",
+        "open-sans-symbols-wght-normal.69cbbfc7.woff2",
+        "open-sans-vietnamese-wght-normal.b2769b1e.woff2"
+      ]
+    }
+  ]
+}
