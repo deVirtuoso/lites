@@ -13,6 +13,7 @@
   },
   "action": {
     "default_title": "TranslateTube Voice Translation Lite",
+    "default_popup": "popup.html",
     "default_icon": {
       "16": "icon16.plasmo.6c567d50.png",
       "32": "icon32.plasmo.76b92899.png",
