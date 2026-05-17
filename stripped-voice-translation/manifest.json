@@ -26,7 +26,8 @@
     "service_worker": "static/background/index.js"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
   "host_permissions": [
     "https://*.translatetube.io/*",
