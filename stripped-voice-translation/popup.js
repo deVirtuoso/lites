@@ -6,7 +6,6 @@ const GOOGLE_WEBSTORE_REVIEW_URL =
 const UPGRADE_URL = "https://translatetube.pro"
 const AUTH_GOOGLE_URL = "https://auth.translatetube.io"
 
-const TRIAL_DAYS = 3
 const MS_PER_DAY = 24 * 60 * 60 * 1000
 
 const DEV_TEST_EMAIL = "test@test.com"
@@ -25,8 +24,6 @@ const tabSignUp = $("tabSignUp")
 const panelSignIn = $("panelSignIn")
 const panelSignUp = $("panelSignUp")
 const formError = $("formError")
-const trialBanner = $("trialBanner")
-const trialText = $("trialText")
 const signedInPanel = $("signedInPanel")
 const authPanel = $("authPanel")
 const userEmailDisplay = $("userEmailDisplay")
@@ -34,9 +31,6 @@ const linkRating = $("linkRating")
 const linkUpgrade = $("linkUpgrade")
 const btnGoogle = $("btnGoogle")
 const btnSignOut = $("btnSignOut")
-
-let currentEmail = null
-let trialIntervalId = null
 
 linkRating.href = GOOGLE_WEBSTORE_REVIEW_URL
 
@@ -142,60 +136,13 @@ async function ensureTrialStart(email, isNewAccount) {
   return start
 }
 
-function formatTrialMessage(daysRemaining) {
-  if (daysRemaining <= 0) {
-    return "Trial ended — please upgrade"
-  }
-  if (daysRemaining === 1) {
-    return "1 day remaining"
-  }
-  return `${daysRemaining} days remaining`
-}
-
-function computeTrialState(startMs) {
-  const elapsedDays = Math.floor((Date.now() - startMs) / MS_PER_DAY)
-  const daysRemaining = TRIAL_DAYS - elapsedDays
-  return {
-    daysRemaining,
-    message: formatTrialMessage(daysRemaining),
-    expired: daysRemaining <= 0
-  }
-}
-
-function updateTrialUI(startMs) {
-  if (startMs == null) {
-    trialBanner.className = "trial-banner guest"
-    trialText.textContent = "Sign in to start your 3-day free trial"
-    return
-  }
-
-  const { message, expired, daysRemaining } = computeTrialState(startMs)
-  trialText.textContent = message
-  trialBanner.classList.remove("guest", "active", "expired")
-  if (expired) {
-    trialBanner.classList.add("expired")
-  } else {
-    trialBanner.classList.add("active")
-  }
-}
-
-function startTrialTicker(startMs) {
-  if (trialIntervalId != null) {
-    clearInterval(trialIntervalId)
-  }
-  updateTrialUI(startMs)
-  trialIntervalId = setInterval(() => updateTrialUI(startMs), 60_000)
-}
-
 function setSignedInUI(email) {
-  currentEmail = email
   userEmailDisplay.textContent = email
   signedInPanel.classList.remove("hidden")
   authPanel.classList.add("collapsed")
 }
 
 function setSignedOutUI() {
-  currentEmail = null
   signedInPanel.classList.add("hidden")
   authPanel.classList.remove("collapsed")
   $("signInEmail").value = ""
@@ -203,11 +150,7 @@ function setSignedOutUI() {
   $("signUpEmail").value = ""
   $("signUpPassword").value = ""
   clearFieldErrors()
-  if (trialIntervalId != null) {
-    clearInterval(trialIntervalId)
-    trialIntervalId = null
-  }
-  updateTrialUI(null)
+  switchAuthTab("signUp")
 }
 
 async function saveSession(email) {
@@ -310,9 +253,7 @@ async function authenticateLocal(email, password, isSignUp) {
     return normalized
   }
 
-  throw new Error(
-    "Account not found. Use Sign Up to register, or dev credentials test@test.com / password."
-  )
+  throw new Error("Account not found. Use Sign Up to register.")
 }
 
 async function registerLocal(email, password) {
@@ -329,11 +270,10 @@ async function registerLocal(email, password) {
 }
 
 async function completeSignIn(email) {
-  const startMs = await getTrialStartMs(email)
-  const resolvedStart =
-    startMs ?? (await ensureTrialStart(email, false))
+  if ((await getTrialStartMs(email)) == null) {
+    await ensureTrialStart(email, false)
+  }
   setSignedInUI(email)
-  startTrialTicker(resolvedStart)
 }
 
 async function bootstrap() {
@@ -422,14 +362,6 @@ btnSignOut.addEventListener("click", async () => {
 
 linkUpgrade.addEventListener("click", () => {
   chrome.tabs.create({ url: UPGRADE_URL })
-})
-
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && currentEmail) {
-    getTrialStartMs(currentEmail).then((startMs) => {
-      if (startMs != null) updateTrialUI(startMs)
-    })
-  }
 })
 
 bootstrap()
